@@ -10,7 +10,7 @@ public class ReadUSB2 : MonoBehaviour {
 	const int baudrate = 115200;
 
 	// Specify Correct Port Name
-	const string portName = "\\\\.\\COM3";
+	const string portName = "\\\\.\\COM6";
 
 	SerialPort serialPort = new SerialPort(portName, baudrate);
 
