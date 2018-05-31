@@ -14,9 +14,9 @@ public class GameController : MonoBehaviour
 
     //public GUIText scoreText;
     private int score;
-    //public Text scoreText;
-    //public Text restartText;
-    //public Text gameOverText;
+    public Text scoreText;
+    public Text restartText;
+    public Text gameOverText;
 
     private bool gameOver;
     private bool restart;
@@ -28,8 +28,8 @@ public class GameController : MonoBehaviour
         rb = player.GetComponent<Rigidbody>();
         gameOver = false;
         restart = false;
-        //restartText.text = "";
-        //gameOverText.text = "";
+        restartText.text = "";
+        gameOverText.text = "";
         score = 0;
         UpdateScore();
         StartCoroutine(SpawnWaves());
@@ -56,6 +56,8 @@ public class GameController : MonoBehaviour
                 Vector3 spawnPosition = new Vector3(Random.Range(playerPosition.x - spawnValues.x, playerPosition.x + spawnValues.x),
                     Random.Range(playerPosition.y - spawnValues.y, playerPosition.y + spawnValues.y),
                     Random.Range(playerPosition.z, playerPosition.z + spawnValues.z));
+                spawnPosition = spawnPosition.normalized;
+                spawnPosition *= Random.Range(10f, 30f);
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
@@ -63,7 +65,7 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(waveWait);
             if (gameOver)
             {
-                //restartText.text = "Press 'R' for Restart";
+                restartText.text = "Press 'R' for Restart";
                 restart = true;
                 break;
             }
@@ -77,12 +79,17 @@ public class GameController : MonoBehaviour
     }
     void UpdateScore()
     {
-        //scoreText.text = "Score: " + score.ToString();
+        scoreText.text = "Score: " + score.ToString();
 
     }
     public void GameOver()
     {
-        //gameOverText.text = "Game Over";
+        gameOverText.text = "Game Over";
+        GameObject[] asteroids = GameObject.FindGameObjectsWithTag("asteroid");
+        for (int i = 0; i < asteroids.Length; i++)
+        {
+            Destroy(asteroids[i]);
+        }
         gameOver = true;
     }
 }
