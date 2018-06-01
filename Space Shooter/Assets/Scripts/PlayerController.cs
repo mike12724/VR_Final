@@ -12,12 +12,14 @@ public class PlayerController : MonoBehaviour
     public GameObject shot;
     public GameObject boundary;
     public Transform shotSpawn;
+    public Transform shotSpawn2;
     public float fireRate;
     private float nextFire;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = Vector3.zero;
     }
     void Update()
     {
@@ -25,33 +27,20 @@ public class PlayerController : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-      
+            Instantiate(shot, shotSpawn2.position, shotSpawn2.rotation);
         }
 
     }
     void FixedUpdate()
     {
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveVertical = Input.GetAxis("Jump");
         float rotate = Input.GetAxis("Horizontal");
-        float updown = Input.GetAxis("Jump");
+        float updown = Input.GetAxis("Vertical");
         rb.AddRelativeForce(Vector3.forward * moveVertical* thrust);
-        rb.AddRelativeTorque(Vector3.up * torque * rotate);
-        rb.AddRelativeForce(Vector3.up * updown * thrust);
-        if (moveVertical == 0)
-        {
-            Vector3 slower = new Vector3(slow, 1, slow);
-            rb.velocity = Vector3.Scale(rb.velocity, slower);
-        }
-        if (updown == 0)
-        {
-            Vector3 slower = new Vector3(1, slow, 1);
-            rb.velocity = Vector3.Scale(rb.velocity, slower);
-        }
-        if (rotate == 0)
-        {
-            Vector3 slower = new Vector3(slow, slow, slow);
-            rb.angularVelocity = Vector3.Scale(rb.angularVelocity, slower);
-        }
+
+        transform.Rotate(Vector3.up*rotate*torque);
+        transform.Rotate(Vector3.right * updown*torque);
+
         SphereCollider s = boundary.GetComponent<SphereCollider>();
         rb.position = Vector3.ClampMagnitude(rb.position, s.radius-2);
     }
