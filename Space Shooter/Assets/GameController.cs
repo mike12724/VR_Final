@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public Vector3 spawnValues;
+    public Vector2 spawnValues;
     public GameObject hazard;
     public int hazardCount;
     public float spawnWait;
@@ -41,7 +42,7 @@ public class GameController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                Application.LoadLevel(Application.loadedLevel);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
     }
@@ -53,11 +54,10 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < hazardCount; i++)
             {
                 Vector3 playerPosition = player.transform.position;
-                Vector3 spawnPosition = new Vector3(Random.Range(playerPosition.x - spawnValues.x, playerPosition.x + spawnValues.x),
-                    Random.Range(playerPosition.y - spawnValues.y, playerPosition.y + spawnValues.y),
-                    Random.Range(playerPosition.z, playerPosition.z + spawnValues.z));
+                Vector3 spawnPosition = Random.insideUnitSphere;
                 spawnPosition = spawnPosition.normalized;
-                spawnPosition *= Random.Range(10f, 30f);
+                spawnPosition *= Random.Range(spawnValues.x, spawnValues.y);
+                spawnPosition += playerPosition;
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(hazard, spawnPosition, spawnRotation);
                 yield return new WaitForSeconds(spawnWait);
@@ -65,6 +65,11 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(waveWait);
             if (gameOver)
             {
+                GameObject[] asteroids = GameObject.FindGameObjectsWithTag("asteroid");
+                for (int i = 0; i < asteroids.Length; i++)
+                {
+                    Destroy(asteroids[i]);
+                }
                 restartText.text = "Press 'R' for Restart";
                 restart = true;
                 break;
@@ -85,11 +90,7 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         gameOverText.text = "Game Over";
-        GameObject[] asteroids = GameObject.FindGameObjectsWithTag("asteroid");
-        for (int i = 0; i < asteroids.Length; i++)
-        {
-            Destroy(asteroids[i]);
-        }
+        GameObject.Find("Player").GetComponent<PlayerController>().enabled = false;
         gameOver = true;
     }
 }
