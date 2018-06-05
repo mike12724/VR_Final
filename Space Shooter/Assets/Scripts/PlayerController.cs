@@ -14,10 +14,12 @@ public class PlayerController : MonoBehaviour
     public Transform shotSpawn2;
     public float fireRate;
     private float nextFire;
+    private AudioSource audioSource;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         rb.centerOfMass = Vector3.zero; //Not strictly necessary?
     }
     void Update()
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation); //Shoot bullets from each gun
             Instantiate(shot, shotSpawn2.position, shotSpawn2.rotation);
+            audioSource.Play();
         }
 
     }

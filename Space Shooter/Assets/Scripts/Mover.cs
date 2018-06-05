@@ -9,7 +9,7 @@ private Rigidbody rb;
 	void Start () {
         GameObject player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody>();
-		rb.velocity  = (player.transform.position - transform.position )* speed;
+		rb.velocity  = Vector3.Normalize(player.transform.position+ Random.insideUnitSphere*4 - transform.position )* speed;
 	}
 	
 
