@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class ReadUSB2 : MonoBehaviour {
 
 	const int baudrate = 115200;
+    public GameObject p;
 
 	// Specify Correct Port Name
 	const string portName = "\\\\.\\COM6";
@@ -55,8 +56,10 @@ public class ReadUSB2 : MonoBehaviour {
 					float.Parse(line[3]),
 					float.Parse(line[4]),
 					float.Parse(line[1]));
+                
 
 				transform.rotation = Quaternion.Inverse(q);
+                transform.rotation = Quaternion.Euler(transform.eulerAngles + transform.parent.eulerAngles);
 
 			}
 
