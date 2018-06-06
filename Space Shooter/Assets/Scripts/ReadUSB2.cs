@@ -58,8 +58,8 @@ public class ReadUSB2 : MonoBehaviour {
 					float.Parse(line[1]));
                 
 
-				transform.rotation = Quaternion.Inverse(q);
-                transform.rotation = Quaternion.Euler(transform.eulerAngles + transform.parent.eulerAngles);
+				transform.localRotation = Quaternion.Inverse(q);
+                //transform.rotation = Quaternion.Euler(transform.eulerAngles + transform.parent.eulerAngles);
 
 			}
 
