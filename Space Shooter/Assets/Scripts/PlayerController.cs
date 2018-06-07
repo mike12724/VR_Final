@@ -29,13 +29,13 @@ public class PlayerController : MonoBehaviour
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation); //Shoot bullets from each gun
             Instantiate(shot, shotSpawn2.position, shotSpawn2.rotation);
-            audioSource.Play();
+            audioSource.Play(); //play pew-pew sound
         }
 
     }
     void FixedUpdate()
     {
-        float moveVertical = Input.GetAxis("Jump");
+        float moveVertical = Input.GetAxis("Jump"); //Get player inputs
         float rotate = Input.GetAxis("Horizontal");
         float updown = Input.GetAxis("Vertical");
         rb.AddRelativeForce(Vector3.forward * moveVertical* thrust); //Force-based position transform
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.right * updown*turnRate);
 
 
-        SphereCollider s = boundary.GetComponent<SphereCollider>(); 
-        rb.position = Vector3.ClampMagnitude(rb.position, s.radius-2); //Clamp position inside the boundary
+        SphereCollider s = boundary.GetComponent<SphereCollider>(); //Find boundary sphere
+        rb.position = Vector3.ClampMagnitude(rb.position, s.radius-2); //Clamp player position to be inside the boundary
     }
 }

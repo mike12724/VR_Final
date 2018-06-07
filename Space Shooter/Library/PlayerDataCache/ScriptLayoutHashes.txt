@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-C:/Users/chiuv/OneDrive/Documents/GitHub/VR_Final/Space Shooter/Builds/Builds.exe
+C:/Users/mkoss/Documents/GitHub/VR_Final/Space Shooter/Builds/Builds.exe
 SceneListBegin?
 Assets/Scenes/SampleScene.unity
 SceneListEnd?
@@ -128,7 +128,7 @@ c3b7b977138d5af6e460067c3d1a9e0a Assembly-CSharp.dll:.PlayerControllerAstronaut
 f930c71e2bac4d71caaa19659d7f5631 Assembly-CSharp.dll:.CardboardAudioListener
 b7797416cbcf117e668abd95ec922572 Assembly-CSharp.dll:.CardboardHead
 c55f73f8f1562b6824faf4063dd4b0fd Assembly-CSharp.dll:.DestroyByTime
-9c38c4b7ba0b1d58a691fe192c35dd81 Assembly-CSharp.dll:.ReadUSB2
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ReadUSB2
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery

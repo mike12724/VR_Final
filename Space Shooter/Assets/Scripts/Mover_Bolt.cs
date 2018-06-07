@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Mover_Bolt : MonoBehaviour {
     private Rigidbody rb;
-    // Use this for initialization
+    
+    //Attached to bullet object; moves object 
+    //in the direction the player is looking
     public float speed;
     void Start()
     {

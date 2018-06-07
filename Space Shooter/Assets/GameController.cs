@@ -38,41 +38,43 @@ public class GameController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) //hit escape at any time to exit app
         {
-            Application.Quit();
+            Application.Quit(); 
         }
-        if (restart)
+        if (restart) //if in "gameover" state
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R)) //and player hits "R" key
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //restart the game
             }
         }
     }
-    IEnumerator SpawnWaves()
+    IEnumerator SpawnWaves() //Basically a parallel runtime routine
     {
-        yield return new WaitForSeconds(startWait);
-        while (true)
+        yield return new WaitForSeconds(startWait); //at game start, waits for startWait amount of time
+        while (true) //before starting to spawn asteroids
         {
             for (int i = 0; i < hazardCount; i++)
             {
                 Vector3 playerPosition = player.transform.position;
                 Vector3 spawnPosition = Random.insideUnitSphere;
-                spawnPosition = spawnPosition.normalized;
-                spawnPosition *= Random.Range(spawnValues.x, spawnValues.y);
-                spawnPosition += playerPosition;
+                spawnPosition = spawnPosition.normalized; //spawn position is somewhere on unit shell
+                spawnPosition *= Random.Range(spawnValues.x, spawnValues.y); //Scale it to be further away
+                spawnPosition += playerPosition; //offset it by player position
                 Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
-                yield return new WaitForSeconds(spawnWait);
+                //overall: spawn asteroid randomly in a sphere centered on the player
+                //at least spawnValues.x away from player (at most spawnValues.y away from player)
+                Instantiate(hazard, spawnPosition, spawnRotation); //Create asteroid 
+                yield return new WaitForSeconds(spawnWait); //wait time b/w asteroids
             }
-            yield return new WaitForSeconds(waveWait);
+            yield return new WaitForSeconds(waveWait); //wait time b/w waves of asteroids
             if (gameOver)
             {
                 GameObject[] asteroids = GameObject.FindGameObjectsWithTag("asteroid");
                 for (int i = 0; i < asteroids.Length; i++)
                 {
-                    Destroy(asteroids[i]);
+                    Destroy(asteroids[i]); //destory all remaining asteroids
                 }
                 restartText.text = "Press 'R' for Restart";
                 restart = true;
@@ -94,6 +96,7 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         gameOverText.text = "Game Over";
+        //disable player controls when gameover occurs
         GameObject.Find("Player").GetComponent<PlayerController>().enabled = false;
         gameOver = true;
     }

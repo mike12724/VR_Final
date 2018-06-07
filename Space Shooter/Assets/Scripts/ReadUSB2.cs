@@ -8,10 +8,9 @@ using System.Collections.Generic;
 public class ReadUSB2 : MonoBehaviour {
 
 	const int baudrate = 115200;
-    public GameObject p;
 
 	// Specify Correct Port Name
-	const string portName = "\\\\.\\COM6";
+	const string portName = "\\\\.\\COM3";
 
 	SerialPort serialPort = new SerialPort(portName, baudrate);
 
@@ -58,8 +57,7 @@ public class ReadUSB2 : MonoBehaviour {
 					float.Parse(line[1]));
                 
 
-				transform.localRotation = Quaternion.Inverse(q);
-                //transform.rotation = Quaternion.Euler(transform.eulerAngles + transform.parent.eulerAngles);
+				transform.localRotation = Quaternion.Inverse(q); //Actual transformation for the camera
 
 			}
 

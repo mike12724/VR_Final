@@ -5,7 +5,7 @@ using UnityEngine;
 public class RandomRotator : MonoBehaviour {
 private Rigidbody rb;
 public float tumble;
-	// Use this for initialization
+	// Simple script for making asteroids tumble about their center of mass
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 		rb.angularVelocity =  Random.insideUnitSphere * tumble; 
