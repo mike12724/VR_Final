@@ -10,6 +10,10 @@ Windows 10, 64 bit
 Unity version 2018 1.1
 Baud rate 115200
 
+**Run the Game**
+In the Space Shooter folder, go to the Builds folder. In Builds, run the Builds Unity application in the HMD.
+To make any changes, in Space Shooter, go to Assets\Scenes and open SampleScene in Unity.
+
 **VRDUINO Usage**
 Orientation tracking is implemented for the VRduino in the vrduino/vrduino.ino and accompanying scripts. 
 Instructions are included within that file on how to implement orientation tracking. 
